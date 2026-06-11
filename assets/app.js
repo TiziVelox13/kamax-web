@@ -13,9 +13,15 @@
     phoneDisplay: "351 370-2828",                   // cómo se muestra el número en pantalla
     phoneE164: "+543513702828",                     // para links tel:
     price: "$2.090.000",                            // precio final de venta (confirmado 11/06/2026)
-    email: "ventas@veloxsolutions.com",             // ← email real
-    address: "Córdoba · dirección a confirmar"      // ← showroom real
+    warranty: "Garantía oficial Kamax"              // ← PLACEHOLDER: existe garantía (confirmado), falta el término.
+                                                    //   Cuando Alejandro pase duración/cobertura, cambiar acá por
+                                                    //   ej. "Garantía oficial Kamax · 12 meses" y listo.
   };
+  /* email: NO existe email corporativo de Velox (veloxsolutions.com no tiene MX,
+     dominio estacionado en NameBright). Canal único = WhatsApp. Si algún día hay
+     email real: agregarlo acá y restaurar la fila en #contacto + footer.
+     showroom/horario: sin dirección confirmada — filas removidas a pedido de
+     Tiziano (11/06); cuando haya dato real, restaurar acá y en #contacto. */
 
   var COLORS = [
     { slug: "negro-rojo",  name: "Negro / Rojo",  c1: "#14161c", c2: "#EC0606", ambient: "236,6,6" },
@@ -47,10 +53,6 @@
   }
 
   /* ---- datos de contacto desde CONFIG ---- */
-  var emailA = $("contactEmail");
-  if (emailA) { emailA.href = "mailto:" + CONFIG.email; emailA.textContent = CONFIG.email; }
-  var addr = $("contactAddress");
-  if (addr) addr.textContent = CONFIG.address;
   document.querySelectorAll("[data-phone]").forEach(function (el) {
     el.textContent = CONFIG.phoneDisplay;
   });
@@ -59,6 +61,9 @@
   });
   document.querySelectorAll("[data-price]").forEach(function (el) {
     el.textContent = CONFIG.price;
+  });
+  document.querySelectorAll("[data-warranty]").forEach(function (el) {
+    el.textContent = CONFIG.warranty;
   });
   var y = $("year");
   if (y) y.textContent = new Date().getFullYear();
