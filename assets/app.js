@@ -9,9 +9,12 @@
      Cuando estén los datos reales, se cambia acá y nada más.
      ────────────────────────────────────────────────────────── */
   var CONFIG = {
-    whatsappNumber: "540000000000",                 // ← número real con código de país, sin "+"
+    whatsappNumber: "5493513702828",                // número real con código de país, sin "+"
+    phoneDisplay: "351 370-2828",                   // cómo se muestra el número en pantalla
+    phoneE164: "+543513702828",                     // para links tel:
+    price: "$2.090.000",                            // precio final de venta (confirmado 11/06/2026)
     email: "ventas@veloxsolutions.com",             // ← email real
-    address: "Dirección a confirmar · Concesionario Velox" // ← showroom real
+    address: "Córdoba · dirección a confirmar"      // ← showroom real
   };
 
   var COLORS = [
@@ -48,6 +51,15 @@
   if (emailA) { emailA.href = "mailto:" + CONFIG.email; emailA.textContent = CONFIG.email; }
   var addr = $("contactAddress");
   if (addr) addr.textContent = CONFIG.address;
+  document.querySelectorAll("[data-phone]").forEach(function (el) {
+    el.textContent = CONFIG.phoneDisplay;
+  });
+  document.querySelectorAll("[data-phone-link]").forEach(function (el) {
+    el.href = "tel:" + CONFIG.phoneE164;
+  });
+  document.querySelectorAll("[data-price]").forEach(function (el) {
+    el.textContent = CONFIG.price;
+  });
   var y = $("year");
   if (y) y.textContent = new Date().getFullYear();
 
@@ -134,7 +146,7 @@
       pre.src = imgSrc(col);
     }
 
-    var ambient = "radial-gradient(circle, rgba(" + col.ambient + ",.16) 0%, transparent 60%)";
+    var ambient = "radial-gradient(circle, rgba(" + col.ambient + ",.12) 0%, transparent 60%)";
     if (colorAmbient) colorAmbient.style.background = ambient;
     if (heroAmbient) heroAmbient.style.background = ambient;
 
@@ -204,6 +216,13 @@
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     document.querySelectorAll(".reveal, .reveal-wipe").forEach(function (el) { io.observe(el); });
+    /* red de seguridad: si el observer no dispara (render headless, tab oculta,
+       navegador embebido), nada queda invisible */
+    setTimeout(function () {
+      document.querySelectorAll(".reveal:not(.in), .reveal-wipe:not(.in)").forEach(function (el) {
+        el.classList.add("in");
+      });
+    }, 2600);
   } else {
     document.querySelectorAll(".reveal, .reveal-wipe").forEach(function (el) { el.classList.add("in"); });
   }
